@@ -1,28 +1,39 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <header-bool @onclick="saveValue"/>
+    <main-bool class="main" :passed-value="userInput" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HeaderBool from './components/HeaderBool.vue'
+import MainBool from './components/MainBool.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HeaderBool,
+    MainBool
+  },
+  data () {
+    return {
+      userInput: ''
+    }
+  },
+  methods: {
+    saveValue (passedValue) {
+      this.userInput = passedValue
+      console.log(this.userInput)
+    }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@import './assets/style.scss';
+.main {
+  width: 100%;
+  min-height: calc(100vh - 83px);
+  background-color: gray;
 }
 </style>

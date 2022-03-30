@@ -64,8 +64,11 @@ export default {
 <style lang="scss">
 @import './assets/style.scss';
 .main {
+  background-color: gray;
   width: 100%;
   min-height: calc(100vh - 83px);
-  background-color: gray;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 </style>

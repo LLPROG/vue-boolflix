@@ -1,55 +1,69 @@
 <template>
   <div>
-    <div class="card" v-for="movie in passedArreyMovie" :key="movie.id">
-      <h1>{{ movie.title }}</h1>
-      <h2>{{ movie.original_title }}</h2>
-      <img class="flag" v-if="movie.original_language !== 'en' " :src="link + movie.original_language">
-      <img class="flag" v-else :src="link + en">
-      <div class="stars">
-        <!-- <h4>{{ Math.round(movie.vote_average / 2) }}</h4> -->
-        <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 1" icon="fa-regular fa-star" />
-        <font-awesome-icon v-else icon="fa-solid fa-star" />
+    <div class="deck"  v-for="movie in passedArreyMovie" :key="movie.id">
+      <div class="card">
+        <div class="front">
+          <h1 class="title">Titolo: {{ movie.title }}</h1>
+          <h2>Titolo Originale: {{ movie.original_title }}</h2>
+          <img class="flag" v-if="movie.original_language !== 'en' " :src="link + movie.original_language">
+          <img class="flag" v-else :src="link + en">
+          <div class="stars">
+            Voto:
+            <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 1" icon="fa-regular fa-star" />
+            <font-awesome-icon v-else icon="fa-solid fa-star" />
 
-        <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 2" icon="fa-regular fa-star" />
-        <font-awesome-icon v-else icon="fa-solid fa-star" />
+            <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 2" icon="fa-regular fa-star" />
+            <font-awesome-icon v-else icon="fa-solid fa-star" />
 
-        <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 3" icon="fa-regular fa-star" />
-        <font-awesome-icon v-else icon="fa-solid fa-star" />
+            <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 3" icon="fa-regular fa-star" />
+            <font-awesome-icon v-else icon="fa-solid fa-star" />
 
-        <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 4" icon="fa-regular fa-star" />
-        <font-awesome-icon v-else icon="fa-solid fa-star" />
+            <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 4" icon="fa-regular fa-star" />
+            <font-awesome-icon v-else icon="fa-solid fa-star" />
 
-        <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 5" icon="fa-regular fa-star" />
-        <font-awesome-icon v-else icon="fa-solid fa-star" />
+            <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 5" icon="fa-regular fa-star" />
+            <font-awesome-icon v-else icon="fa-solid fa-star" />
+          </div>
+          <div class="overview">Trama: {{movie.overview}}</div>
+        </div>
+        <div class="back">
+          <img :src="poster + posterSize + movie.poster_path" :alt="movie.title">
+        </div>
       </div>
-      <img :src="poster + posterSize + movie.poster_path" :alt="movie.title">
     </div>
 
-    <div class="card" v-for="serie in passedArreyTv" :key="serie.id">
-      <h1>{{ serie.name }}</h1>
-      <h2>{{ serie.name }}</h2>
-      <img class="flag" v-if="serie.original_language !== 'en' " :src="link + serie.original_language">
-      <img class="flag" v-else :src="link + en">
-      <div class="stars">
-        <!-- <h4>{{ Math.round(serie.vote_average / 2) }}</h4> -->
-        <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 1" icon="fa-regular fa-star" />
-        <font-awesome-icon v-else icon="fa-solid fa-star" />
+    <div class="deck"  v-for="serie in passedArreyTv" :key="serie.id">
+      <div class="card">
+        <div class="front">
+          <h1 class="title">{{ serie.name }}</h1>
+          <h2>{{ serie.name }}</h2>
+          <img class="flag" v-if="serie.original_language !== 'en' " :src="link + serie.original_language">
+          <img class="flag" v-else :src="link + en">
+          <div class="stars">
+            Voto:
+            <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 1" icon="fa-regular fa-star" />
+            <font-awesome-icon v-else icon="fa-solid fa-star" />
 
-        <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 2" icon="fa-regular fa-star" />
-        <font-awesome-icon v-else icon="fa-solid fa-star" />
+            <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 2" icon="fa-regular fa-star" />
+            <font-awesome-icon v-else icon="fa-solid fa-star" />
 
-        <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 3" icon="fa-regular fa-star" />
-        <font-awesome-icon v-else icon="fa-solid fa-star" />
+            <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 3" icon="fa-regular fa-star" />
+            <font-awesome-icon v-else icon="fa-solid fa-star" />
 
-        <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 4" icon="fa-regular fa-star" />
-        <font-awesome-icon v-else icon="fa-solid fa-star" />
+            <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 4" icon="fa-regular fa-star" />
+            <font-awesome-icon v-else icon="fa-solid fa-star" />
 
-        <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 5" icon="fa-regular fa-star" />
-        <font-awesome-icon v-else icon="fa-solid fa-star" />
+            <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 5" icon="fa-regular fa-star" />
+            <font-awesome-icon v-else icon="fa-solid fa-star" />
+          </div>
+          <div class="overview">Trama: {{serie.overview}}</div>
+        </div>
+        <div class="back">
+          <img :src="poster + posterSize + serie.poster_path" :alt="serie.title">
+        </div>
       </div>
-      <img :src="poster + posterSize + serie.poster_path" :alt="serie.title">
-
     </div>
+
   </div>
 </template>
 
@@ -74,5 +88,45 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.deck {
+  background-color: transparent;
+  width: 342px;
+  height: 515px;
+  perspective: 1000px;
+
+  &:hover .card {
+  transform: rotateY(180deg);
+  }
+  .card {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    -webkit-transition: all .5s linear;
+    transition: all .5s linear;
+    .flag {
+      margin: 1rem 0;
+      width: 10%;
+    }
+    .title {
+      margin: 1rem 0;
+    }
+    .front {
+      padding: 0.5rem;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      color: white;
+      transform: rotateY(180deg);
+      backface-visibility: hidden;
+
+    }
+    .back {
+      overflow:hidden;
+      z-index:-1;
+      display: block;
+    }
+  }
+}
 
 </style>

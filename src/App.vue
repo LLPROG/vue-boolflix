@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <header-bool @onclick="saveValue"/>
-    <main-bool class="main" :passed-value="userInput" :passed-arrey="arrCards"/>
+    <main-bool class="main"
+      :passed-value="userInput"
+      :passed-arrey-movie="arrCardsMovie"
+      :passed-arrey-tv="arrCardsTv"
+    />
   </div>
 </template>
 
@@ -19,17 +23,38 @@ export default {
   data () {
     return {
       userInput: '',
-      api: 'https://api.themoviedb.org/3/search/movie?api_key=dccfcea6793752dd574eef990cb9eace&query=',
-      arrCards: null
+      api: 'https://api.themoviedb.org/3',
+      arrCardsMovie: null,
+      arrCardsTv: null
     }
   },
   methods: {
     saveValue (passedValue) {
       this.userInput = passedValue
       console.log(passedValue)
-      axios.get(this.api + this.userInput.split(' ').join('+'))
+      // movie
+      axios.get(this.api + '/search/movie', {
+        params: {
+          api_key: 'dccfcea6793752dd574eef990cb9eace',
+          language: 'it-IT',
+          query: this.userInput.toLowerCase()
+        }
+      })
         .then((response) => {
-          this.arrCards = response.data.results
+          this.arrCardsMovie = response.data.results
+          console.log(this.arrCardsMovie)
+        })
+      // serie tv
+      axios.get(this.api + '/search/tv', {
+        params: {
+          api_key: 'dccfcea6793752dd574eef990cb9eace',
+          language: 'it-IT',
+          query: this.userInput.toLowerCase()
+        }
+      })
+        .then((response) => {
+          this.arrCardsTv = response.data.results
+          console.log(this.arrCardsTv)
         })
     }
   }

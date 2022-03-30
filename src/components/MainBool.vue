@@ -6,14 +6,17 @@
       <img class="flag" v-if="movie.original_language !== 'en' " :src="link + movie.original_language">
       <img class="flag" v-else :src="link + en">
       <h4>{{ movie.vote_average }}</h4>
+      <img :src="poster + movie.poster_path" :alt="movie.title">
     </div>
 
-    <div class="card" v-for="movie in passedArreyTv" :key="movie.id">
-      <h1>{{ movie.name }}</h1>
-      <h2>{{ movie.name }}</h2>
-      <img class="flag" v-if="movie.original_language !== 'en' " :src="link + movie.original_language">
+    <div class="card" v-for="serie in passedArreyTv" :key="serie.id">
+      <h1>{{ serie.name }}</h1>
+      <h2>{{ serie.name }}</h2>
+      <img class="flag" v-if="serie.original_language !== 'en' " :src="link + serie.original_language">
       <img class="flag" v-else :src="link + en">
-      <h4>{{ movie.vote_average }}</h4>
+      <h4>{{ serie.vote_average }}</h4>
+      <img :src="poster + serie.poster_path" :alt="serie.title">
+
     </div>
   </div>
 </template>
@@ -30,7 +33,8 @@ export default {
   data () {
     return {
       link: 'https://countryflagsapi.com/png/',
-      en: 'gb'
+      en: 'gb',
+      poster: 'https://image.tmdb.org/t/p/w500/'
     }
   }
 }

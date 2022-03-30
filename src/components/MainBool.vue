@@ -1,27 +1,21 @@
 <template>
   <div>
-    <card-bool :passed-value="passedValue"/>
+    <div class="card" v-for="movie in passedArrey" :key="movie.id">
+      <h1>{{ movie.title }}</h1>
+      <h2>{{ movie.original_title }}</h2>
+      <h3>{{ movie.original_language }}</h3>
+      <h4>{{ movie.vote_average }}</h4>
+    </div>
   </div>
 </template>
 
 <script>
-import CardBool from './CardBool.vue'
-
 export default {
   name: 'MainBool',
-  components: {
-    CardBool
-  },
   props: {
-    passedValue: String
-  },
-  data () {
-    return {
-      api: 'https://api.themoviedb.org/3/movie/550?',
-      api_key: 'api_key=dccfcea6793752dd574eef990cb9eace'
-    }
+    passedValue: String,
+    passedArrey: []
   }
-
 }
 </script>
 

@@ -5,8 +5,24 @@
       <h2>{{ movie.original_title }}</h2>
       <img class="flag" v-if="movie.original_language !== 'en' " :src="link + movie.original_language">
       <img class="flag" v-else :src="link + en">
-      <h4>{{ movie.vote_average }}</h4>
-      <img :src="poster + movie.poster_path" :alt="movie.title">
+      <div class="stars">
+        <!-- <h4>{{ Math.round(movie.vote_average / 2) }}</h4> -->
+        <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 1" icon="fa-regular fa-star" />
+        <font-awesome-icon v-else icon="fa-solid fa-star" />
+
+        <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 2" icon="fa-regular fa-star" />
+        <font-awesome-icon v-else icon="fa-solid fa-star" />
+
+        <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 3" icon="fa-regular fa-star" />
+        <font-awesome-icon v-else icon="fa-solid fa-star" />
+
+        <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 4" icon="fa-regular fa-star" />
+        <font-awesome-icon v-else icon="fa-solid fa-star" />
+
+        <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 5" icon="fa-regular fa-star" />
+        <font-awesome-icon v-else icon="fa-solid fa-star" />
+      </div>
+      <img :src="poster + posterSize + movie.poster_path" :alt="movie.title">
     </div>
 
     <div class="card" v-for="serie in passedArreyTv" :key="serie.id">
@@ -14,8 +30,24 @@
       <h2>{{ serie.name }}</h2>
       <img class="flag" v-if="serie.original_language !== 'en' " :src="link + serie.original_language">
       <img class="flag" v-else :src="link + en">
-      <h4>{{ serie.vote_average }}</h4>
-      <img :src="poster + serie.poster_path" :alt="serie.title">
+      <div class="stars">
+        <!-- <h4>{{ Math.round(serie.vote_average / 2) }}</h4> -->
+        <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 1" icon="fa-regular fa-star" />
+        <font-awesome-icon v-else icon="fa-solid fa-star" />
+
+        <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 2" icon="fa-regular fa-star" />
+        <font-awesome-icon v-else icon="fa-solid fa-star" />
+
+        <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 3" icon="fa-regular fa-star" />
+        <font-awesome-icon v-else icon="fa-solid fa-star" />
+
+        <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 4" icon="fa-regular fa-star" />
+        <font-awesome-icon v-else icon="fa-solid fa-star" />
+
+        <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 5" icon="fa-regular fa-star" />
+        <font-awesome-icon v-else icon="fa-solid fa-star" />
+      </div>
+      <img :src="poster + posterSize + serie.poster_path" :alt="serie.title">
 
     </div>
   </div>
@@ -34,7 +66,8 @@ export default {
     return {
       link: 'https://countryflagsapi.com/png/',
       en: 'gb',
-      poster: 'https://image.tmdb.org/t/p/w500/'
+      poster: 'https://image.tmdb.org/t/p/',
+      posterSize: 'w342/'
     }
   }
 }

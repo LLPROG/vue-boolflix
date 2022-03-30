@@ -32,8 +32,11 @@ export default {
     saveValue (passedValue) {
       this.userInput = passedValue
       console.log(passedValue)
-      // movie
-      axios.get(this.api + '/search/movie', {
+      this.axiosSet('movie')
+      this.axiosSet('tv')
+    },
+    axiosSet (typeSearch) {
+      axios.get(this.api + '/search/' + typeSearch, {
         params: {
           api_key: 'dccfcea6793752dd574eef990cb9eace',
           language: 'it-IT',
@@ -41,20 +44,13 @@ export default {
         }
       })
         .then((response) => {
-          this.arrCardsMovie = response.data.results
-          console.log(this.arrCardsMovie)
-        })
-      // serie tv
-      axios.get(this.api + '/search/tv', {
-        params: {
-          api_key: 'dccfcea6793752dd574eef990cb9eace',
-          language: 'it-IT',
-          query: this.userInput.toLowerCase()
-        }
-      })
-        .then((response) => {
-          this.arrCardsTv = response.data.results
-          console.log(this.arrCardsTv)
+          if (typeSearch === 'movie') {
+            this.arrCardsMovie = response.data.results
+            console.log(this.arrCardsMovie)
+          } else {
+            this.arrCardsTv = response.data.results
+            console.log(this.arrCardsTv)
+          }
         })
     }
   }
@@ -68,6 +64,7 @@ export default {
   width: 100%;
   min-height: calc(100vh - 83px);
   display: flex;
+  justify-content: space-around;
   flex-wrap: wrap;
   gap: 1rem;
 }

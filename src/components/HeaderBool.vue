@@ -17,6 +17,7 @@ export default {
   methods: {
     onclick (userInput) {
       this.$emit('onclick', userInput)
+      userInput = ''
     }
   }
 }

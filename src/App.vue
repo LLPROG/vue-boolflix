@@ -65,9 +65,6 @@ export default {
   background-color: gray;
   width: 100%;
   min-height: calc(100vh - 83px);
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 1rem;
+  text-align: center;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="deck"  v-for="movie in passedArreyMovie" :key="movie.id">
+    <div class="deck"  v-for="movie in passedArreyMovie" :key="movie.backdrop_path">
       <div class="card">
         <div class="back">
           <h1 class="title">Titolo: {{ movie.title }}</h1>
@@ -9,21 +9,12 @@
           <img class="flag" v-else :src="link + en">
           <div class="stars">
             Voto:
-            <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 1" icon="fa-regular fa-star" />
-            <font-awesome-icon v-else icon="fa-solid fa-star" />
-
-            <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 2" icon="fa-regular fa-star" />
-            <font-awesome-icon v-else icon="fa-solid fa-star" />
-
-            <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 3" icon="fa-regular fa-star" />
-            <font-awesome-icon v-else icon="fa-solid fa-star" />
-
-            <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 4" icon="fa-regular fa-star" />
-            <font-awesome-icon v-else icon="fa-solid fa-star" />
-
-            <font-awesome-icon v-if="Math.round(movie.vote_average / 2) < 5" icon="fa-regular fa-star" />
-            <font-awesome-icon v-else icon="fa-solid fa-star" />
+            <font-awesome-icon v-for="i in Math.round(movie.vote_average / 2)" :key="i" icon="fa-solid fa-star" />
+            <font-awesome-icon v-for="i in 5 - Math.round(movie.vote_average / 2)" :key="i + 'vuoto'" icon="fa-regular fa-star" />
           </div>
+
+          <h4 v-for="el in getCast(movie.id, 'movie')" :key="el._id">ciao</h4>
+
           <div v-if="movie.overview !== ''" class="overview">Trama: {{movie.overview}}</div>
         </div>
         <div class="front">
@@ -33,7 +24,7 @@
       </div>
     </div>
 
-    <div class="deck"  v-for="serie in passedArreyTv" :key="serie.id">
+    <div class="deck"  v-for="serie in passedArreyTv" :key="serie.backdrop_path">
       <div class="card">
         <div class="back">
           <h1 class="title">{{ serie.name }}</h1>
@@ -42,20 +33,8 @@
           <img class="flag" v-else :src="link + en">
           <div class="stars">
             Voto:
-            <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 1" icon="fa-regular fa-star" />
-            <font-awesome-icon v-else icon="fa-solid fa-star" />
-
-            <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 2" icon="fa-regular fa-star" />
-            <font-awesome-icon v-else icon="fa-solid fa-star" />
-
-            <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 3" icon="fa-regular fa-star" />
-            <font-awesome-icon v-else icon="fa-solid fa-star" />
-
-            <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 4" icon="fa-regular fa-star" />
-            <font-awesome-icon v-else icon="fa-solid fa-star" />
-
-            <font-awesome-icon v-if="Math.round(serie.vote_average / 2) < 5" icon="fa-regular fa-star" />
-            <font-awesome-icon v-else icon="fa-solid fa-star" />
+            <font-awesome-icon v-for="i in Math.round(serie.vote_average / 2)" :key="i" icon="fa-solid fa-star" />
+            <font-awesome-icon v-for="i in 5 - Math.round(serie.vote_average / 2)" :key="i + 'vuoto'" icon="fa-regular fa-star" />
           </div>
           <div v-if="serie.overview !== ''" class="overview">Trama: {{serie.overview}}</div>
         </div>
@@ -65,12 +44,11 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-
+import axios from 'axios'
 export default {
   name: 'MainBool',
   props: {
@@ -83,7 +61,22 @@ export default {
       link: 'https://countryflagsapi.com/png/',
       en: 'gb',
       poster: 'https://image.tmdb.org/t/p/',
-      posterSize: 'w342/'
+      posterSize: 'w342/',
+      api: 'https://api.themoviedb.org/3'
+    }
+  },
+  methods: {
+    getCast (id, type) {
+      axios.get(this.api + '/' + type + '/' + id + '/credits', {
+        params: {
+          api_key: 'dccfcea6793752dd574eef990cb9eace',
+          language: 'it-IT'
+        }
+      })
+        .then((response) => {
+          console.log(response.data.cast.slice(0, 5))
+          return response.data.cast.slice(0, 5)
+        })
     }
   }
 }
@@ -123,7 +116,7 @@ export default {
       color: white;
       transform: rotateY(180deg);
       backface-visibility: hidden;
-      overflow:hidden;
+      overflow-y:auto;
     }
     .front {
       width: 100%;

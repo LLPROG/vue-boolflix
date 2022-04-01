@@ -34,6 +34,8 @@ export default {
       console.log(passedValue)
       this.axiosSet('movie')
       this.axiosSet('tv')
+      this.arrCardsMovie = ''
+      this.arrCardsTv = ''
     },
     axiosSet (typeSearch) {
       axios.get(this.api + '/search/' + typeSearch, {

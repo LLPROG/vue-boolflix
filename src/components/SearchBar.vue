@@ -1,8 +1,7 @@
 <template>
   <div>
     <label for="input">
-      cerca
-      <input type="text" v-model="userInput">
+      <input type="text" v-model="userInput" placeholder="cerca film o serie tv ">
       <button @click="$emit('onclick', userInput)">
         cerca
       </button>

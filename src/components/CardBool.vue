@@ -17,6 +17,15 @@
             <h4 v-for="el in arrCast" :key="el._id">{{  el.name }}</h4>
           </div>
 
+           <div class="genre">
+              Generi:
+            <div class="ids-genre" v-for="id in CardData.genre_ids" :key="id.id">
+              <div v-for="el in arrGenre" :key="el._id">
+                <h4 class="genre-name" v-if="id == el.id">{{ el.name }}</h4>
+              </div>
+            </div>
+          </div>
+
           <div v-if="CardData.overview !== ''" class="overview">Trama: {{CardData.overview}}</div>
         </div>
         <div class="front">
@@ -43,12 +52,15 @@ export default {
       posterSize: 'w342/',
       api: 'https://api.themoviedb.org/3',
       arrCast: [],
+      arrGenre: [],
       type: 'movie'
     }
   },
   created () {
     this.castForMovie()
     this.castForSeries()
+    this.genreForMovie()
+    this.genreForTv()
   },
   methods: {
     castForMovie () {
@@ -62,9 +74,7 @@ export default {
           console.log(response.data.cast.slice(0, 5))
           this.arrCast = response.data.cast.slice(0, 5)
         })
-        .catch(function (error) {
-          console.log(error.toJSON())
-        })
+        .catch(() => {})
     },
     castForSeries () {
       axios.get(this.api + '/tv/' + this.CardData.id + '/credits', {
@@ -77,9 +87,33 @@ export default {
           console.log(response.data.cast.slice(0, 5))
           this.arrCast = response.data.cast.slice(0, 5)
         })
-        .catch(function (error) {
-          console.log(error.toJSON())
+        .catch(() => {})
+    },
+    genreForMovie () {
+      axios.get(this.api + '/genre/movie/list', {
+        params: {
+          api_key: 'dccfcea6793752dd574eef990cb9eace',
+          language: 'it-IT'
+        }
+      })
+        .then((response) => {
+          console.log(response.data.genres)
+          this.arrGenre = response.data.genres
         })
+        .catch(() => {})
+    },
+    genreForTv () {
+      axios.get(this.api + '/genre/tv/list', {
+        params: {
+          api_key: 'dccfcea6793752dd574eef990cb9eace',
+          language: 'it-IT'
+        }
+      })
+        .then((response) => {
+          console.log(response.data.genres)
+          this.arrGenre = response.data.genres
+        })
+        .catch(() => {})
     }
   }
 }
@@ -121,9 +155,11 @@ export default {
       backface-visibility: hidden;
       overflow-y:auto;
 
-      .cast {
+      .cast,
+      .genre {
         margin: 0.5rem 0;
       }
+
     }
     .front {
       width: 100%;
